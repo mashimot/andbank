@@ -1,4 +1,4 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import {
 	Component,
 	EventEmitter,
@@ -18,22 +18,29 @@ import {
 	Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { NativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { IIndexador } from '../../../indexador/models/indexador';
 import { ITipoProduto } from '../../../tipo-produto/models/tipo-produto';
-import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
 import { IRendaFixa, IRendaFixaCreate, IRendaFixaSave } from '../../models/renda-fixa';
-import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
 
 @Component({
 	selector: 'app-renda-fixa-form',
 	templateUrl: './renda-fixa-form.component.html',
 	styleUrls: ['./renda-fixa-form.component.scss'],
 	standalone: true,
+	providers: [
+		DatePipe,
+		provideNativeDateAdapter(),
+	],
 	imports: [
 		ReactiveFormsModule,
 		JsonPipe,
@@ -42,10 +49,14 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 		MatFormFieldModule,
 		MatInputModule,
 		MatSelectModule,
+		MatDatepickerModule,
 		MatButtonModule,
 		MatIconModule,
 		MatProgressSpinnerModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		NgxMaskDirective,
+		NgxMaskPipe,
+		NativeDateModule
 	]
 })
 export class RendaFixaFormComponent implements OnInit {
@@ -64,12 +75,15 @@ export class RendaFixaFormComponent implements OnInit {
 	@Output() public tipoProdutoChange: EventEmitter<number> = new EventEmitter();
 
 	private formBuilder = inject(FormBuilder)
+	private datePipe!: DatePipe;
 
 	form!: FormGroup;
 	formSubmitAttempt: boolean = false;
 
 	constructor(
-	) { }
+	) {
+		this.datePipe = new DatePipe('pt-BR');
+	}
 
 	ngOnInit(): void {
 	}
@@ -91,7 +105,7 @@ export class RendaFixaFormComponent implements OnInit {
 				this.indexadorId.setValue("", { emitEvent: false });
 				this.tipoProdutoChange.emit(value);
 			}
-		)
+		);
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -109,12 +123,19 @@ export class RendaFixaFormComponent implements OnInit {
 
 	public displayRendaFixa(rendaFixa: IRendaFixa): void {
 		this.f.reset();
-		this.f.patchValue(rendaFixa);
+		this.f.patchValue({ ...rendaFixa });
+	}
+
+	btnVoltar(): void {
+
 	}
 
 	onSubmit(): void {
 		if (this.f.valid) {
-			const rendaFixa = { ...this.f.value };
+			const rendaFixa = {
+				...this.f.value,
+				dataValidade: this.datePipe.transform(this.dataValidade.value, 'yyyy-MM-dd')
+			};
 
 			if (!this.rendaFixa && this.isEdit === false) {
 				this.createRendaFixaChange.emit(rendaFixa);

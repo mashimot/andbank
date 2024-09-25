@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule, CurrencyPipe } from '@angular/common';
+import { AsyncPipe, CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +16,7 @@ import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
   imports: [
     AsyncPipe,
     CurrencyPipe,
+    DatePipe,
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
