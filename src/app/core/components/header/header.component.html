@@ -1,0 +1,33 @@
+<nav class="menu fixed">
+    <div class="logo">
+        <img src="https://www.andbank.com/brasil/wp-content/themes/andbank/assets/images/andbank_pt.png" alt="Andbank Logo">
+    </div>
+    <div class="menu-content">
+        <div class="menu-item">
+            <div class="spacer"></div>
+            <div class="user-profile">
+                <button mat-button [matMenuTriggerFor]="profileMenu">
+                    <div class="dropdown-container">
+                        <div class="dropdown-trigger">
+                            <div class="circle"></div>
+                            <div class="user-info">
+                                <span class="user-name">John Doe</span>
+                                <span class="user-role">Diretor Andbank</span>
+                            </div>
+                            <div class="caret">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+    <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item><i class="fa-solid fa-gear"></i> Settings</button>
+        <button mat-menu-item><i class="fa-solid fa-power-off"></i> Log out</button>
+    </mat-menu>
+</nav>
