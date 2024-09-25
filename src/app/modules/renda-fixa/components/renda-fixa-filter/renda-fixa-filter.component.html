@@ -1,0 +1,38 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div fxLayout fxLayoutGap="5px">
+        <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input type="text" [formControlName]="'Id'" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Descrição</mat-label>
+            <input type="text" [formControlName]="'Descricao'" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Tipo Produto</mat-label>
+            <input type="text" [formControlName]="'TipoProdutoId'" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Indexador</mat-label>
+            <input type="text" [formControlName]="'IndexadorId'" matInput>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout fxLayoutGap="5px">
+        <button 
+            type="button"
+            mat-raised-button
+            (click)="clear()"
+        >
+            Limpar filtros
+        </button>
+
+        <button 
+            type="submit"
+            mat-raised-button
+            color="warn"
+        >
+            Aplicar filtros
+        </button>
+    </div>
+</form>

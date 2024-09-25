@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid">
+        <mat-form-field *ngIf="descricao as field" fxFlex="70" fxFlex.xs="100">
+            <mat-label>Descrição</mat-label>
+            <input type="text" [formControlName]="'descricao'" matInput>
+            <div *ngIf="isFieldValid(field)">
+                <mat-error *ngIf="field.hasError('required')">Descrição is required</mat-error>
+                <mat-error *ngIf="field.hasError('maxlength')">Descrição max must be 100</mat-error>
+            </div>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="dataValidade as field" fxFlex="30" fxFlex.xs="100">
+            <mat-label>Data Validade</mat-label>
+            <input type="text" [formControlName]="'dataValidade'" matInput>
+            <div *ngIf="isFieldValid(field)" css="invalid-feedback">
+                <mat-error *ngIf="dataValidade.hasError('requilared')">Data Validade is required</mat-error>
+            </div>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid">
+        <mat-form-field *ngIf="investimentoMinimo as field" fxFlex="30" fxFlex.xs="100">
+            <mat-label>Investimento Mínimo</mat-label>
+            <input type="text" [formControlName]="'investimentoMinimo'" matInput>
+            <div *ngIf="isFieldValid(field)">
+                <mat-error *ngIf="investimentoMinimo.hasError('required')">Investimento Mínimo is required</mat-error>
+            </div>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="tipoProdutoId as field" fxFlex="35" fxFlex.xs="100">
+            <mat-label>Tipo Produto</mat-label>
+            <mat-select [formControlName]="'tipoProdutoId'">
+                <mat-option value="">Select</mat-option>
+                <mat-option *ngFor="let produto of tipoProduto; let produtoIndex = index" [value]="produto.id">{{ produto.nome }}</mat-option>
+            </mat-select>
+            <div *ngIf="isFieldValid(field)">
+                <mat-error *ngIf="tipoProdutoId.hasError('required')">Tipo Produto is required</mat-error>
+            </div>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="indexadorId as field" fxFlex="35" fxFlex.xs="100">
+            <mat-label>Indexador</mat-label>
+            <mat-select [formControlName]="'indexadorId'">
+                <mat-option value="">Select</mat-option>
+                <mat-option *ngFor="let indexador of indexadores; let indexadorIndex = index" [value]="indexador.id">{{ indexador.nome }}</mat-option>
+            </mat-select>
+            <div *ngIf="isFieldValid(field)">
+                <mat-error *ngIf="indexadorId.hasError('required')">Indexador is required</mat-error>
+            </div>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout fxLayoutGap="5px">
+        <button type="button" mat-raised-button color="basic">
+            Voltar
+        </button>
+        <button 
+            type="submit"
+            mat-raised-button
+            color="warn"
+            [disabled]="f.invalid || spinner.tipoProduto || spinner.rendaFixa || spinner.indexador || spinner.create || spinner.save"
+
+        >
+            {{ isEdit === true ? 'Salvar' : 'Criar' }}
+            <mat-icon *ngIf="spinner.tipoProduto || spinner.rendaFixa || spinner.indexador || spinner.create || spinner.save">
+                <mat-spinner diameter="18"></mat-spinner>
+            </mat-icon> 
+        </button>
+    </div>
+</form>

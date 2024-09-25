@@ -1,0 +1,10 @@
+<app-renda-fixa-form
+    [isEdit]="isEdit"
+    [rendaFixa]="rendaFixa$ | async"
+    [tipoProduto]="tipoProduto$ | async"
+    [indexadores]="indexadores$ | async"
+    [spinner]="spinner"
+    (saveRendaFixaChange)="onSaveRendaFixaFormChange($event)"
+    (createRendaFixaChange)="onCreateRendaFixaFormChange($event)"
+    (tipoProdutoChange)="onTipoProdutoFormChange($event)"
+></app-renda-fixa-form>

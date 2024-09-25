@@ -1,0 +1,13 @@
+<app-renda-fixa-filter
+    [searchFilter]="filter"
+    (search)="onSearchRendaFixaChange($event)"
+></app-renda-fixa-filter>
+
+<app-renda-fixa-list
+    [rendaFixa]="rendaFixa$ | async"
+    [spinner]="spinner"
+    (createRendaFixa)="onCreateRendaFixaChange()"
+    (detailRendaFixa)="onDetailRendaFixaChange($event)"
+    (saveRendaFixa)="onSaveRendaFixaChange($event)"
+    (deleteRendaFixa)="onDeleteRendaFixaChange($event)"
+></app-renda-fixa-list>
