@@ -78,10 +78,10 @@ export class RendaFixaFilterComponent implements OnInit, OnChanges {
 
 	buildSearchForm(): FormGroup {
 		return this.formBuilder.group({
-			Id: ['', [rangeValidator(1, 9999)]],
+			Id: ['', [rangeValidator(1, 999999)]],
 			Descricao: ['', [Validators.maxLength(100)]],
-			TipoProdutoId: ['', [rangeValidator(1, 9999)]],
-			IndexadorId: ['', [rangeValidator(1, 9999)]]
+			TipoProdutoId: ['', [rangeValidator(1, 999999)]],
+			IndexadorId: ['', [rangeValidator(1, 999999)]]
 		});
 	}
 
