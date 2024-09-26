@@ -1,7 +1,9 @@
-<app-renda-fixa-filter
-    [searchFilter]="filter"
-    (search)="onSearchRendaFixaChange($event)"
-></app-renda-fixa-filter>
+<div class="mb-3">
+    <app-renda-fixa-filter
+        [searchFilter]="filter"
+        (search)="onSearchRendaFixaChange($event)"
+    ></app-renda-fixa-filter>
+</div>
 
 <app-renda-fixa-list
     [rendaFixa]="rendaFixa$ | async"

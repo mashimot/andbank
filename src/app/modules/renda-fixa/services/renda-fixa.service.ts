@@ -36,16 +36,12 @@ export class RendaFixaService {
 
   public store(rendaFixa: IRendaFixaCreate): Observable<unknown> {
     const body = rendaFixa;
-    return this.httpClient.post(URL_CONFIG.Rendafixa, body).pipe(
-      tap(r => console.log('store', r))
-    )
+    return this.httpClient.post(URL_CONFIG.Rendafixa, body);
   }
 
   public update(rendaFixa: IRendaFixaSave): Observable<unknown> {
     const body = rendaFixa;
-    return this.httpClient.put(URL_CONFIG.Rendafixa, body).pipe(
-      tap(r => console.log('update', r))
-    )
+    return this.httpClient.put(URL_CONFIG.Rendafixa, body);
   }
 
   public destroy(id: number): Observable<unknown> {

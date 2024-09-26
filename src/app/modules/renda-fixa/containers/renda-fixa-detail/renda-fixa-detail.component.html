@@ -1,1 +1,13 @@
-<pre>{{ rendaFixa$ | async | json }}</pre>
+<ng-container *ngIf="(rendaFixa$ | async) as rendaFixa; else loading">
+    <pre>{{ rendaFixa | json }}</pre>
+</ng-container>
+
+<ng-template #loading>
+    <h1>LOADING....</h1>
+</ng-template>
+
+<div>
+    <button type="button" mat-raised-button color="basic" (click)="btnVoltar()">
+        Voltar
+    </button>
+</div>
