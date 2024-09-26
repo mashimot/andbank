@@ -4,8 +4,8 @@
     align-items: center;
     background-color: #fff;
     height: 100px;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
     border-bottom: 1px solid black;
 
     &.fixed {
@@ -18,7 +18,7 @@
 
     .logo {
         img {
-            height: 50px;
+            height: 35px;
         }
     }
 
@@ -99,20 +99,20 @@
 
     }
 
-    @media (max-width: 768px) {
-        flex-direction: row;
-        align-items: center;
+    // @media (max-width: 768px) {
+    //     flex-direction: row;
+    //     align-items: center;
 
-        .menu-content {
-            justify-content: end;
+    //     .menu-content {
+    //         justify-content: end;
 
-            .menu-item {
-                display: none;
-            }
+    //         .menu-item {
+    //             display: none;
+    //         }
 
-            .menu-toggle {
-                display: block;
-            }
-        }
-    }
+    //         .menu-toggle {
+    //             display: block;
+    //         }
+    //     }
+    // }
 }
