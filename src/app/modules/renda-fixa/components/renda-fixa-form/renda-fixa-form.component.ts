@@ -31,6 +31,7 @@ import { IIndexador } from '../../../indexador/models/indexador';
 import { ITipoProduto } from '../../../tipo-produto/models/tipo-produto';
 import { IRendaFixa, IRendaFixaCreate, IRendaFixaSave } from '../../models/renda-fixa';
 import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-renda-fixa-form',
@@ -74,7 +75,9 @@ export class RendaFixaFormComponent implements OnInit {
 	@Output() public createRendaFixaChange: EventEmitter<IRendaFixaCreate> = new EventEmitter();
 	@Output() public tipoProdutoChange: EventEmitter<number> = new EventEmitter();
 
-	private formBuilder = inject(FormBuilder)
+	private formBuilder = inject(FormBuilder);
+	private location = inject(Location);
+
 	private datePipe!: DatePipe;
 
 	form!: FormGroup;
@@ -129,7 +132,7 @@ export class RendaFixaFormComponent implements OnInit {
 	}
 
 	btnVoltar(): void {
-
+		this.location.back();
 	}
 
 	onSubmit(): void {

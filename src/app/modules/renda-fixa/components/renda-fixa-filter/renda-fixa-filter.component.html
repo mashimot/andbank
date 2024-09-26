@@ -1,20 +1,42 @@
+<pre>{{ f?.errors | json }}</pre>
+<pre>{{ f?.value | json }}</pre>
+
+<pre>{{ id?.errors | json }}</pre>
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
     <div fxLayout fxLayoutGap="5px">
-        <mat-form-field>
+        <mat-form-field fxFlex="20" fxFlex.xs="100">
             <mat-label>Id</mat-label>
             <input type="text" [formControlName]="'Id'" matInput>
+            <div *ngIf="isFieldValid(id)">
+                <mat-error *ngIf="id.hasError('rangeError')">
+                    O valor deve estar entre {{ id?.errors.rangeError.min }} e {{ id?.errors.rangeError.max }}.
+                </mat-error>
+            </div>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="40" fxFlex.xs="100">
             <mat-label>Descrição</mat-label>
             <input type="text" [formControlName]="'Descricao'" matInput>
+            <div *ngIf="isFieldValid(descricao)">
+                <mat-error *ngIf="descricao.hasError('maxlength')">Descrição max must be 100</mat-error>
+            </div>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="20" fxFlex.xs="100">
             <mat-label>Tipo Produto</mat-label>
             <input type="text" [formControlName]="'TipoProdutoId'" matInput>
+            <div *ngIf="isFieldValid(tipoProdutoId)">
+                <mat-error *ngIf="tipoProdutoId.hasError('rangeError')">
+                    O valor deve estar entre {{ tipoProdutoId?.errors.rangeError.min }} e {{ tipoProdutoId?.errors.rangeError.max }}.
+                </mat-error>
+            </div>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="20" fxFlex.xs="100">
             <mat-label>Indexador</mat-label>
             <input type="text" [formControlName]="'IndexadorId'" matInput>
+            <div *ngIf="isFieldValid(indexadorId)">
+                <mat-error *ngIf="indexadorId.hasError('rangeError')">
+                    O valor deve estar entre {{ indexadorId?.errors.rangeError.min }} e {{ indexadorId?.errors.rangeError.max }}.
+                </mat-error>
+            </div>
         </mat-form-field>
     </div>
 
@@ -31,6 +53,7 @@
             type="submit"
             mat-raised-button
             color="warn"
+            [disabled]="f.invalid"
         >
             Aplicar filtros
         </button>

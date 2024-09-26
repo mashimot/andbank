@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid" class="mb-3">
         <mat-form-field fxFlex="65" fxFlex.xs="100">
             <mat-label>Descrição</mat-label>
             <input type="text" [formControlName]="'descricao'" matInput>
@@ -26,7 +26,7 @@
         </mat-form-field>
     </div>
 
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid" class="mb-3">
         <mat-form-field fxFlex="30" fxFlex.xs="100">
             <mat-label>Investimento Mínimo</mat-label>
             <input type="text" [formControlName]="'investimentoMinimo'" matInput>
@@ -58,7 +58,7 @@
         </mat-form-field>
     </div>
 
-    <div fxLayout fxLayoutGap="5px">
+    <div fxLayout fxLayoutGap="5px" class="mb-3">
         <button type="button" mat-raised-button color="basic" (click)="btnVoltar()">
             Voltar
         </button>

@@ -1,18 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RendaFixaFilterComponent } from './renda-fixa-filter.component';
-import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { IRendaFixaFilter } from '../../models/renda-fixa';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { IRendaFixaFilter } from '../../models/renda-fixa';
+import { RendaFixaFilterComponent } from './renda-fixa-filter.component';
 
 describe('RendaFixaFilterComponent', () => {
   let component: RendaFixaFilterComponent;
@@ -20,14 +11,12 @@ describe('RendaFixaFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
-      imports: [       
+      imports: [RendaFixaFilterComponent],
+      providers: [
         provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
-        RendaFixaFilterComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA] // Ignora erros de templates não encontrados
+      ]
     })
       .compileComponents();
   });
@@ -35,13 +24,10 @@ describe('RendaFixaFilterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RendaFixaFilterComponent);
     component = fixture.componentInstance;
-
-    // Inicializa o formulário aqui
-    component.ngOnInit();
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
@@ -57,7 +43,7 @@ describe('RendaFixaFilterComponent', () => {
   it('should patch the form with searchFilter on changes', () => {
     const searchFilter: IRendaFixaFilter = {
       Id: 1,
-      Descricao: 'Test Description',
+      Descricao: 'Legal Descricao',
       TipoProdutoId: 2,
       IndexadorId: 3,
     };
@@ -77,7 +63,7 @@ describe('RendaFixaFilterComponent', () => {
   it('should reset the form when clear is called', () => {
     component.searchForm.patchValue({
       Id: 1,
-      Descricao: 'Test',
+      Descricao: 'Descricao', 
       TipoProdutoId: 2,
       IndexadorId: 3,
     });
@@ -85,17 +71,17 @@ describe('RendaFixaFilterComponent', () => {
     component.clear();
 
     expect(component.searchForm.value).toEqual({
-      Id: '',
-      Descricao: '',
-      TipoProdutoId: '',
-      IndexadorId: '',
+      Id: null,
+      Descricao: null,
+      TipoProdutoId: null,
+      IndexadorId: null,
     });
   });
 
   it('should emit search event with form value on submit', () => {
     const searchFilter: IRendaFixaFilter = {
       Id: 1,
-      Descricao: 'Test',
+      Descricao: 'Descricao Descricao',
       TipoProdutoId: 2,
       IndexadorId: 3,
     };
