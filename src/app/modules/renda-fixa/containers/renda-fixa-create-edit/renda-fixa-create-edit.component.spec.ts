@@ -48,19 +48,19 @@ describe('RendaFixaCreateEditComponent', () => {
         {
           provide: RendaFixaService,
           useValue: {
-            getRendaFixaById: () => of(null)
+            getRendaFixaById: () => of([])
           }
         },
         {
           provide: TipoProdutoService,
           useValue: {
-            tipoProduto: () => of(null)
+            tipoProduto: () => of([])
           }
         },
         {
           provide: IndexadorService,
           useValue: {
-            indexadores: () => of(null)
+            indexadores: () => of([])
           }
         }
       ]

@@ -1,12 +1,12 @@
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, Observable, switchMap, tap } from 'rxjs';
 import { RendaFixaFilterComponent } from '../../components/renda-fixa-filter/renda-fixa-filter.component';
 import { RendaFixaListComponent } from '../../components/renda-fixa-list/renda-fixa-list.component';
-import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
 import { IRendaFixa, IRendaFixaFilter } from '../../models/renda-fixa';
+import { IRendaFixaSpinner } from '../../models/renda-fixa-spinner';
 import { RendaFixaService } from './../../services/renda-fixa.service';
 
 @Component({
@@ -21,13 +21,15 @@ import { RendaFixaService } from './../../services/renda-fixa.service';
     RendaFixaFilterComponent
   ],
   templateUrl: './renda-fixa.component.html',
-  styleUrl: './renda-fixa.component.scss'
+  styleUrl: './renda-fixa.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RendaFixaComponent implements OnInit {
   private rendaFixaService = inject(RendaFixaService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
+  private cdRef = inject(ChangeDetectorRef);
 
   public rendaFixa$!: Observable<IRendaFixa[]>;
   public filter!: IRendaFixaFilter;
@@ -49,7 +51,8 @@ export class RendaFixaComponent implements OnInit {
           return this.rendaFixaService.getAll(queryParams).pipe(
             finalize(() => {
               this.filter = queryParams;
-              this.spinner.rendaFixa = false
+              this.spinner.rendaFixa = false;
+              this.cdRef.detectChanges();
             })
           )
         })
@@ -85,7 +88,10 @@ export class RendaFixaComponent implements OnInit {
           })
         )
       }),
-      finalize(() => this.spinner.rendaFixa = false)
+      finalize(() => {
+        this.spinner.rendaFixa = false;
+        this.cdRef.detectChanges();
+      })
     );
   }
 

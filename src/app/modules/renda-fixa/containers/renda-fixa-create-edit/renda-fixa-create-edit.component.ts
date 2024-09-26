@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
@@ -23,7 +23,8 @@ import { RendaFixaService } from './../../services/renda-fixa.service';
 		RendaFixaFormComponent,
 	],
 	templateUrl: './renda-fixa-create-edit.component.html',
-	styleUrl: './renda-fixa-create-edit.component.scss'
+	styleUrl: './renda-fixa-create-edit.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RendaFixaCreateEditComponent implements OnInit {
 	private rendaFixaService = inject(RendaFixaService);
@@ -31,6 +32,7 @@ export class RendaFixaCreateEditComponent implements OnInit {
 	private indexadorService = inject(IndexadorService);
 	private activatedRoute = inject(ActivatedRoute);
 	private snackBar = inject(MatSnackBar);
+	private cdRef = inject(ChangeDetectorRef);
 
 	public rendaFixa$!: Observable<IRendaFixa | null | undefined>;
 	public tipoProduto$!: Observable<ITipoProduto[]>;
@@ -50,7 +52,10 @@ export class RendaFixaCreateEditComponent implements OnInit {
 	public getTipoProduto(): Observable<ITipoProduto[]> {
 		this.spinner.tipoProduto = true;
 		return this.tipoProdutoService.tipoProduto().pipe(
-			finalize(() => this.spinner.tipoProduto = false)
+			finalize(() => {
+				this.spinner.tipoProduto = false
+				this.cdRef.detectChanges();
+			})
 		);
 	}
 
@@ -58,7 +63,10 @@ export class RendaFixaCreateEditComponent implements OnInit {
 		if (tipoProdutoId) {
 			this.spinner.indexador = true;
 			this.indexadores$ = this.indexadorService.indexadores(tipoProdutoId).pipe(
-				finalize(() => this.spinner.indexador = false)
+				finalize(() => {
+					this.spinner.indexador = false;
+					this.cdRef.detectChanges();
+				})
 			)
 		}
 	}
@@ -67,7 +75,10 @@ export class RendaFixaCreateEditComponent implements OnInit {
 		this.spinner.save = true;
 		this.rendaFixaService.update(rendaFixa)
 			.pipe(
-				finalize(() => this.spinner.save = false)
+				finalize(() => {
+					this.spinner.save = false;
+					this.cdRef.detectChanges();
+				})
 			)
 			.subscribe(
 				next => {
@@ -88,7 +99,10 @@ export class RendaFixaCreateEditComponent implements OnInit {
 		this.spinner.create = true;
 		this.rendaFixaService.store(rendaFixa)
 			.pipe(
-				finalize(() => this.spinner.create = false)
+				finalize(() => {
+					this.spinner.create = false;
+					this.cdRef.detectChanges();
+				})
 			)
 			.subscribe(
 				next => {
@@ -118,10 +132,16 @@ export class RendaFixaCreateEditComponent implements OnInit {
 				switchMap(id => {
 					return id
 						? this.rendaFixaService.getRendaFixaById(id).pipe(
-							finalize(() => this.spinner.rendaFixa = false)
+							finalize(() => {
+								this.spinner.rendaFixa = false
+								this.cdRef.detectChanges();
+							})
 						)
 						: of(null).pipe(
-							finalize(() => this.spinner.rendaFixa = false)
+							finalize(() => {
+								this.spinner.rendaFixa = false
+								this.cdRef.detectChanges();
+							})
 						)
 				}),
 				shareReplay(1)
