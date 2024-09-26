@@ -24,23 +24,6 @@
                 <mat-error *ngIf="dataValidade.hasError('matDatepickerParse')">Data Errada (dd/mm/yyyy) is required</mat-error>
             </div>
         </mat-form-field>
-        <pre>{{ dataValidade?.errors | json }}</pre>
-
-        <!-- <mat-form-field fxFlex="30" fxFlex.xs="100">
-            <mat-label>Data Validade</mat-label>
-            <input 
-                [formControlName]="'dataValidade'"
-                matInput
-                [mask]="'d0/M0/0000'"
-                [leadZeroDateTime]="true"
-                [showMaskTyped]="false"
-                [dropSpecialCharacters]="false"
-            >
-            <div *ngIf="isFieldValid(dataValidade)">
-                <mat-error *ngIf="dataValidade.hasError('required')">Data Validade is required</mat-error>
-                <mat-error *ngIf="dataValidade.hasError('mask')">Data 123213 is required</mat-error>
-            </div>
-        </mat-form-field> -->
     </div>
 
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5px grid">

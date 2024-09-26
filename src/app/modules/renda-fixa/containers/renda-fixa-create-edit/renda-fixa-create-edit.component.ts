@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
@@ -23,7 +23,8 @@ import { RendaFixaService } from './../../services/renda-fixa.service';
 		RendaFixaFormComponent,
 	],
 	templateUrl: './renda-fixa-create-edit.component.html',
-	styleUrl: './renda-fixa-create-edit.component.scss'
+	styleUrl: './renda-fixa-create-edit.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RendaFixaCreateEditComponent implements OnInit {
 	private rendaFixaService = inject(RendaFixaService);

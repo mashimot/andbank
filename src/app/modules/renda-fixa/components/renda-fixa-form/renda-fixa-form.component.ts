@@ -86,6 +86,8 @@ export class RendaFixaFormComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.form = this.buildForm();
+		this.listenForInputChanges();
 	}
 
 	public buildForm(): FormGroup {
@@ -111,10 +113,10 @@ export class RendaFixaFormComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges): void {
 		const rendaFixa = changes['rendaFixa']?.currentValue as IRendaFixa;
 
-		if (!this.form) {
-			this.form = this.buildForm();
-			this.listenForInputChanges();
-		}
+		// if (!this.form) {
+		// 	this.form = this.buildForm();
+		// 	this.listenForInputChanges();
+		// }
 
 		if (rendaFixa) {
 			this.displayRendaFixa(rendaFixa);
