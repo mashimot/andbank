@@ -23,8 +23,7 @@ import { RendaFixaService } from './../../services/renda-fixa.service';
 		RendaFixaFormComponent,
 	],
 	templateUrl: './renda-fixa-create-edit.component.html',
-	styleUrl: './renda-fixa-create-edit.component.scss',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrl: './renda-fixa-create-edit.component.scss'
 })
 export class RendaFixaCreateEditComponent implements OnInit {
 	private rendaFixaService = inject(RendaFixaService);

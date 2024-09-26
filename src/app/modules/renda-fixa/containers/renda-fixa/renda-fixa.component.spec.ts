@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
 describe('RendaFixaComponent', () => {
   let component: RendaFixaComponent;
@@ -37,8 +38,7 @@ describe('RendaFixaComponent', () => {
         {
           provide: RendaFixaService,
           useValue: {
-            getAll: () => null
-
+            getAll: () => of([])
           }
         }
       ]
