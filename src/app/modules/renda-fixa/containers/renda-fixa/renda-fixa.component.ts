@@ -100,6 +100,20 @@ export class RendaFixaComponent implements OnInit {
 
   public onSearchRendaFixaChange(value: IRendaFixaFilter): void {
     this.filter = value;
-    this.router.navigate(['renda-fixa'], { queryParams: this.filter });
+    this.spinner.rendaFixa = true;
+    this.rendaFixa$ = this.rendaFixaService.getAll(this.filter).pipe(
+      finalize(() => {
+        this.spinner.rendaFixa = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { ...value },
+        queryParamsHandling: 'merge'
+      }
+    )
   }
 }
