@@ -42,6 +42,7 @@
             mat-raised-button
             (click)="clear()"
         >
+            <i class="fa-solid fa-filter-circle-xmark"></i>
             Limpar filtros
         </button>
 
@@ -51,7 +52,8 @@
             color="warn"
             [disabled]="f.invalid"
         >
-            Aplicar filtros
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Buscar
         </button>
     </div>
 </form>

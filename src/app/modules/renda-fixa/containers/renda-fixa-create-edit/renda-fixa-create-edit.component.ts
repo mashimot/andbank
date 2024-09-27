@@ -133,13 +133,13 @@ export class RendaFixaCreateEditComponent implements OnInit {
 					return id
 						? this.rendaFixaService.getRendaFixaById(id).pipe(
 							finalize(() => {
-								this.spinner.rendaFixa = false
+								this.spinner.rendaFixa = false;
 								this.cdRef.detectChanges();
 							})
 						)
 						: of(null).pipe(
 							finalize(() => {
-								this.spinner.rendaFixa = false
+								this.spinner.rendaFixa = false;
 								this.cdRef.detectChanges();
 							})
 						)

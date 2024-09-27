@@ -46,11 +46,14 @@ export class RendaFixaComponent implements OnInit {
       .activatedRoute
       .queryParams
       .pipe(
-        tap(queryParams => this.spinner.rendaFixa = true),
+        tap(queryParams => {
+          this.spinner.rendaFixa = true;
+          this.filter = queryParams;
+          this.cdRef.detectChanges();
+        }),
         switchMap(queryParams => {
           return this.rendaFixaService.getAll(queryParams).pipe(
             finalize(() => {
-              this.filter = queryParams;
               this.spinner.rendaFixa = false;
               this.cdRef.detectChanges();
             })
